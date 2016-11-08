@@ -33,7 +33,7 @@
         <div class="form-group">
             <label class="label-control">Date de naissance
                 : </label>
-            <?= $this->Form->input('birthday', ['type' => 'text', 'label' => false, 'class' => 'form-control', 'id' => 'datepicker']); ?>
+            <?= $this->Form->input('birthday', ['type' => 'date', 'label' => false, 'class' => 'form-control']); ?>
         </div>
         <div class="form-group">
             <label class="label-control">Changer avatar :</label>
@@ -58,11 +58,3 @@
     </div>
 </fieldset> <?= $this->Form->button('Envoyer', ['class' => 'btn green']) ?>
 <?= $this->Form->end() ?>
-<?= $this->Html->script('jquery.datetimepicker.full.min.js') ?>
-
-<script>
-    $('#datepicker').datetimepicker({
-        timepicker: false,
-        format: "Y/m/d"
-    });
-</script>
