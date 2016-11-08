@@ -31,10 +31,4 @@ class UploadComponent extends Component
             return $file_newName;
         }
     }
-
-    public function deleteImage($directory,$image)
-    {
-        $path = WWW_ROOT . 'img/'.strtolower($directory).'/' . $image;
-        @unlink($path);
-    }
 }
