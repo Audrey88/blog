@@ -26,9 +26,9 @@ class ArticlesTableTest extends TestCase
     public $fixtures = [
         'app.articles',
         'app.categories',
-        'app.commentarys',
         'app.users',
-        'app.roles'
+        'app.roles',
+        'app.commentarys'
     ];
 
     /**
