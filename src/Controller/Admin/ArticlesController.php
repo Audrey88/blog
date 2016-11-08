@@ -87,6 +87,10 @@ class ArticlesController extends AppController
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
+            if(!empty($this->request->data['picture']['name'])) {
+                $picture = $this->Upload->getPicture($this->request->data['picture'], 'article', $article->id, 400, 200, false);
+                $this->request->data['picture_url'] = $picture;
+            }
             $article = $this->Articles->patchEntity($article, $this->request->data);
             if ($this->Articles->save($article)) {
                 $this->Flash->success(__('The article has been saved.'));
