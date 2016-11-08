@@ -1,7 +1,8 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Controller\AppController;
+use Cake\I18n\Time;
 
 /**
  * Articles Controller
@@ -19,7 +20,7 @@ class ArticlesController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Categories']
+            'contain' => ['Categories', 'Users']
         ];
         $articles = $this->paginate($this->Articles);
 
@@ -37,7 +38,7 @@ class ArticlesController extends AppController
     public function view($id = null)
     {
         $article = $this->Articles->get($id, [
-            'contain' => ['Categories', 'Commentarys', 'Users']
+            'contain' => ['Categories', 'Users', 'Commentarys']
         ]);
 
         $this->set('article', $article);
@@ -52,18 +53,24 @@ class ArticlesController extends AppController
     public function add()
     {
         $article = $this->Articles->newEntity();
+        $this->request->data['user_id'] = $this->request->session()->read('Auth')['User']['id'];
+        $date = Time::now();
+        $this->request->data['date_publish'] = $date;
         if ($this->request->is('post')) {
             $article = $this->Articles->patchEntity($article, $this->request->data);
             if ($this->Articles->save($article)) {
+                $picture = $this->Upload->getPicture($this->request->data['picture'],'article',$article->id, 400, 200, false);
+                $this->request->data['picture_url'] = $picture;
+                $article = $this->Articles->patchEntity($article, $this->request->data);
                 $this->Flash->success(__('The article has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('The article could not be saved. Please, try again.'));
             }
         }
         $categories = $this->Articles->Categories->find('list', ['limit' => 200]);
-        $this->set(compact('article', 'categories'));
+        $users = $this->Articles->Users->find('list', ['limit' => 200]);
+        $this->set(compact('article', 'categories', 'users'));
         $this->set('_serialize', ['article']);
     }
 
@@ -90,7 +97,8 @@ class ArticlesController extends AppController
             }
         }
         $categories = $this->Articles->Categories->find('list', ['limit' => 200]);
-        $this->set(compact('article', 'categories'));
+        $users = $this->Articles->Users->find('list', ['limit' => 200]);
+        $this->set(compact('article', 'categories', 'users'));
         $this->set('_serialize', ['article']);
     }
 

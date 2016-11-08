@@ -9,14 +9,15 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $titre
  * @property string $description
+ * @property bool $publish
  * @property string $picture_url
  * @property \Cake\I18n\Time $date_publish
  * @property int $categorie_id
  * @property int $user_id
  *
  * @property \App\Model\Entity\Category $category
+ * @property \App\Model\Entity\User $user
  * @property \App\Model\Entity\Commentary[] $commentarys
- * @property \App\Model\Entity\User[] $users
  */
 class Article extends Entity
 {

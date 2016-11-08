@@ -37,6 +37,39 @@ $cakeDescription = 'Blog-original';
     <?= $this->fetch('script') ?>
 </head>
 <body>
+<header>
+    <nav id="menu">
+        <div class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand <?php if ($this->request->here == '/'): ?>active <?php endif; ?>" href="/">Accueil</a>
+                </div>
+                <div class="collapse navbar-collapse ribbon" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><?php $Ses = $this->request->session()->read('Auth');
+                        if (isset($Ses)): ?>
+                            <a id="connexion" href="<?= $this->Url->build(['controller' => 'users', 'action' => 'view', $this->request->session()->read('Auth')['User']['id'], 'prefix' => 'admin']) ?>">Mon compte</a>
+                        </li>
+                        <li>
+                            <a id="connexion" href="<?= $this->Url->build(['controller' => 'articles', 'action' => 'index', 'prefix' => 'admin']) ?>">Mes articles</a>
+                        </li>
+                        <?php else: ?>
+                        <a id="connexion" href="./utilisateur/connexion">Connexion</a>
+                            </li>
+                        <?php endif;?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
     <?= $this->Flash->render() ?>
     <div class="container clearfix">
         <?= $this->fetch('content') ?>
