@@ -74,7 +74,7 @@ class AppController extends Controller
         if ($this->request->params['prefix'] === 'utilisateur') {
             return (bool)($user['role_id'] === 2);
         }
-
+        $this->allow('add');
         // Par défaut n'autorise pas
         return false;
     }

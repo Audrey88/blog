@@ -76,7 +76,13 @@ $cakeDescription = 'Blog-original';
                         <?php else: ?>
                         <a id="connexion" href="<?= $this->Url->build(['controller' => 'users', 'action' => 'login', 'prefix' => 'utilisateur']) ?>">Connexion</a>
                             </li>
-                        <?php endif;?>
+                        <li>
+                            <a id="connexion" href="
+                            <?= $this->Url->build(['controller' => 'users', 'action' => 'add', 'prefix' => false]) ?>">
+                             S'inscrire   </a>
+                            </li>
+
+                            <?php endif;?>
                     </ul>
                 </div>
             </div>

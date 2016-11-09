@@ -20,6 +20,11 @@
                     </div>
                     <div class="col-md-9">
                         <div class="row">
+                            <div class="pull-right">
+
+                                <a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'edit', $user->id]); ?>"> <i class="glyphicon glyphicon-pencil"></i>
+                                </a>
+                            </div>
                             <div class="col-md-8 profile-info">
                                 <h1 class="uppercase"><?= $user->firstname ?> <?= $user->lastname ?></h1>
                                 <ul class="list-inline">
@@ -32,18 +37,6 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2>Mes articles</h2>
-                    </div>
-                    <div class="col-md-6">
-                        <h3>Mes articles publiés</h3>
-
-                    </div>
-                    <div class="col-md-6">
-                        <h3>Mes articles sauvegardés</h3>
                     </div>
                 </div>
             </div>
