@@ -23,7 +23,15 @@ class ArticlesController extends AppController
         ];
         $articles = $this->paginate($this->Articles);
 
-        $this->set(compact('articles'));
+        $artPublished = $this->Articles->find('all')
+            ->contain(['Categories', 'Users', 'Commentarys'])
+            ->where(['publish'=> 1]);
+
+        $artBrouillon =  $this->Articles->find('all')
+            ->contain(['Categories', 'Users', 'Commentarys'])
+            ->where(['publish'=> 0]);
+
+        $this->set(compact('articles', 'artPublished', 'artBrouillon'));
         $this->set('_serialize', ['articles']);
     }
 
@@ -37,10 +45,11 @@ class ArticlesController extends AppController
     public function view($id = null)
     {
         $article = $this->Articles->get($id, [
-            'contain' => ['Categories', 'Users', 'Commentarys']
+            'contain' => ['Categories', 'Users', 'Commentarys.Users']
         ]);
 
         $this->set('article', $article);
+        $this->set(compact('article'));
         $this->set('_serialize', ['article']);
     }
 
