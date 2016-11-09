@@ -53,15 +53,28 @@ $cakeDescription = 'Blog-original';
                 </div>
                 <div class="collapse navbar-collapse ribbon" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><?php $Ses = $this->request->session()->read('Auth');
-                        if (isset($Ses)): ?>
+                        <li>
+                        <?php
+                        if (isset($this->request->session()->read('Auth')['User']['id'])): ?>
                             <a id="connexion" href="<?= $this->Url->build(['controller' => 'users', 'action' => 'view', $this->request->session()->read('Auth')['User']['id'], 'prefix' => 'admin']) ?>">Mon compte</a>
                         </li>
-                        <li>
-                            <a id="connexion" href="<?= $this->Url->build(['controller' => 'articles', 'action' => 'index', 'prefix' => 'admin']) ?>">Mes articles</a>
+                        <?php if ($this->request->session()->read('Auth')['User']['role_id'] ==1) : ?>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" id="connexion" href="
+                            <?= $this->Url->build(['controller' => 'articles', 'action' => 'index', 'prefix' => 'admin']) ?>">
+                                Mes articles
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="<?= $this->Url->build(['controller' => 'articles', 'action' => 'add', 'prefix' => 'admin']) ?>">Ajouter un article</a></li>
+                                <li><a href="<?= $this->Url->build(['controller' => 'articles', 'action' => 'index', 'prefix' => 'admin']) ?>">Voir mes articles</a></li>
+                            </ul>
                         </li>
+                        <li><a href="<?= $this->Url->build(['controller' => 'categories', 'action' => 'add', 'prefix' => 'admin']) ?>">Ajouter Catégories</a> </li>
+                        <?php endif; ?>
+                        <li class="right-align"><a href="<?= $this->Url->build(['controller' => 'users', 'action' => 'logout']) ?>">se déconnecter</a> </li>
                         <?php else: ?>
-                        <a id="connexion" href="./utilisateur/connexion">Connexion</a>
+                        <a id="connexion" href="<?= $this->Url->build(['controller' => 'users', 'action' => 'login', 'prefix' => 'utilisateur']) ?>">Connexion</a>
                             </li>
                         <?php endif;?>
                     </ul>
