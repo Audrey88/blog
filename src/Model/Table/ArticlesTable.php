@@ -78,7 +78,8 @@ class ArticlesTable extends Table
             ->notEmpty('publish');
 
         $validator
-            ->allowEmpty('picture_url');
+            ->requirePresence('picture_url', 'create')
+            ->notEmpty('picture_url');
 
         $validator
             ->dateTime('date_publish')

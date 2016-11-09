@@ -36,19 +36,8 @@
                             <?= $this->Form->input('description', ['type' => 'textarea', 'class' => 'form-control', 'label' => false]); ?>
                         </div>
                         <div class="col-md-6">
-                            <div class="fileinput fileinput-new" data-provides="fileinput">
-                                <div class="fileinput-new thumbnail" style="width: 400px; height: 200px;">
-                                </div>
-                                <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 300px; max-height: 300px;"></div>
-                                <div>
-                    <span class="btn default btn-file">
-                      <span class="fileinput-new btn btn-primary"> Selectionner une image </span>
-                      <span class="fileinput-exists btn btn-primary"> Modifier </span>
-                      <input type="file" name="picture">
-                    </span>
-                                    <a href="javascript:;" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"> Retirer </a>
-                                </div>
-                            </div>
+                            <label class="label-control">Photo:</label>
+                            <?php echo $this->Form->input('picture',['type'=>'file', 'label'=>false]); ?>
                         </div>
                     </div>
                 </fieldset>

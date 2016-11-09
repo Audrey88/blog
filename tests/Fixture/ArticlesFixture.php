@@ -21,7 +21,7 @@ class ArticlesFixture extends TestFixture
         'titre' => ['type' => 'string', 'length' => 100, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'description' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'publish' => ['type' => 'boolean', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
-        'picture_url' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'picture_url' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => 'noPicture.png', 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'date_publish' => ['type' => 'datetime', 'length' => null, 'null' => false, 'default' => 'CURRENT_TIMESTAMP', 'comment' => '', 'precision' => null],
         'categorie_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'user_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
@@ -52,7 +52,7 @@ class ArticlesFixture extends TestFixture
             'description' => 'Lorem ipsum dolor sit amet',
             'publish' => 1,
             'picture_url' => 'Lorem ipsum dolor sit amet',
-            'date_publish' => '2016-11-08 13:39:37',
+            'date_publish' => '2016-11-09 07:52:13',
             'categorie_id' => 1,
             'user_id' => 1
         ],

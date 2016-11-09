@@ -18,6 +18,7 @@ class CommentarysControllerTest extends IntegrationTestCase
     public $fixtures = [
         'app.commentarys',
         'app.users',
+        'app.roles',
         'app.articles',
         'app.categories'
     ];
