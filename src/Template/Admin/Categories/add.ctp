@@ -1,18 +1,21 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Categories'), ['action' => 'index']) ?></li>
-    </ul>
-</nav>
-<div class="categories form large-9 medium-8 columns content">
-    <?= $this->Form->create($category) ?>
-    <fieldset>
-        <legend><?= __('Add Category') ?></legend>
-        <?php
-            echo $this->Form->input('name');
-            echo $this->Form->input('description');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+<div class="col-md-12">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3>Ajouter une catégorie</h3>
+        </div>
+        <div class="panel-body">
+            <?= $this->Form->create($category) ?>
+            <fieldset>
+                    <div class="form-group col-sm-12">
+                        <label class="label-control">Titre</label>
+                        <?= $this->Form->input('name', ['label'=> false, 'class'=>'form-control']); ?>
+
+                        <label class="label-control">Descripion</label>
+                        <?= $this->Form->input('description', ['type' => 'textarea', 'class' => 'form-control', 'label' => false]); ?>
+                    </div>
+            </fieldset>
+            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->end() ?>
+        </div>
+    </div>
 </div>
