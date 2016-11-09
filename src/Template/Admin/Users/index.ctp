@@ -9,6 +9,7 @@
         <th><?= $this->Paginator->sort('Nom') ?></th>
         <th><?= $this->Paginator->sort('Prénom') ?></th>
         <th><?= $this->Paginator->sort('role_id') ?></th>
+        <th><?= $this->Paginator->sort('Action') ?></th>
     </tr>
     </thead>
     <tbody>
