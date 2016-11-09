@@ -3,6 +3,7 @@ namespace App\Controller\Admin;
 
 use App\Controller\AppController;
 use Cake\I18n\Time;
+
 /**
  * Articles Controller
  *
@@ -19,11 +20,11 @@ class ArticlesController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Categories', 'Users', 'Commentarys']
+            'contain' => ['Categories', 'Users','Commentarys']
         ];
         $articles = $this->paginate($this->Articles);
-
-        $this->set(compact('articles'));
+        
+        $this->set(compact('articles', 'comment'));
         $this->set('_serialize', ['articles']);
     }
 
@@ -56,12 +57,12 @@ class ArticlesController extends AppController
         $date = Time::now();
         $this->request->data['date_publish'] = $date;
         if ($this->request->is('post')) {
-            $picture = $this->Upload->getPicture($this->request->data['picture'],'article',$article->id, 400, 200, false);
-            $this->request->data['picture_url'] = $picture;
             $article = $this->Articles->patchEntity($article, $this->request->data);
             if ($this->Articles->save($article)) {
+                $picture = $this->Upload->getPicture($this->request->data['picture'],'article',$article->id, 400, 200, false);
+                $this->request->data['picture_url'] = $picture;
+                $article = $this->Articles->patchEntity($article, $this->request->data);
                 $this->Flash->success(__('The article has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('The article could not be saved. Please, try again.'));
@@ -86,6 +87,10 @@ class ArticlesController extends AppController
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
+            if(!empty($this->request->data['picture']['name'])) {
+                $picture = $this->Upload->getPicture($this->request->data['picture'], 'article', $article->id, 400, 200, false);
+                $this->request->data['picture_url'] = $picture;
+            }
             $article = $this->Articles->patchEntity($article, $this->request->data);
             if ($this->Articles->save($article)) {
                 $this->Flash->success(__('The article has been saved.'));

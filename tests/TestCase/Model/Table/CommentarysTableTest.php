@@ -26,6 +26,7 @@ class CommentarysTableTest extends TestCase
     public $fixtures = [
         'app.commentarys',
         'app.users',
+        'app.roles',
         'app.articles',
         'app.categories'
     ];
