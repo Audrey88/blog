@@ -56,11 +56,12 @@ class ArticlesController extends AppController
         $date = Time::now();
         $this->request->data['date_publish'] = $date;
         if ($this->request->is('post')) {
-            $picture = $this->Upload->getPicture($this->request->data['picture'],'article',$article->id, 400, 200, false);
-            $this->request->data['picture_url'] = $picture;
             $article = $this->Articles->patchEntity($article, $this->request->data);
             if ($this->Articles->save($article)) {
-                $this->Flash->success(__('The article has been saved.'));
+                $picture = $this->Upload->getPicture($this->request->data['picture'],'article',$article->id, 400, 200, false);
+                $this->request->data['picture_url'] = $picture;
+                $article = $this->Articles->patchEntity($article, $this->request->data);
+                $this->Articles->save($article);
 
                 return $this->redirect(['action' => 'index']);
             } else {
@@ -86,6 +87,10 @@ class ArticlesController extends AppController
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
+            if(!empty($this->request->data['picture']['name'])) {
+                $picture = $this->Upload->getPicture($this->request->data['picture'], 'article', $article->id, 400, 200, false);
+                $this->request->data['picture_url'] = $picture;
+            }
             $article = $this->Articles->patchEntity($article, $this->request->data);
             if ($this->Articles->save($article)) {
                 $this->Flash->success(__('The article has been saved.'));
@@ -113,16 +118,23 @@ class ArticlesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $this->loadModel('Commentarys');
         $article = $this->Articles->get($id);
-        $comment = $this->Commentarys->find('all')
-            ->contain('Articles')
-            ->matching('Articles')->where(['Articles.id'=>'article_id']);
-        if ($this->Articles->delete($comment)) {
+/*        $comment = $this->Commentarys->find('all')
+            ->select('article_id')
+            ->where(['article_id' => $id])
+            ->count();
+        '<pre>'.print_r($comment).'</pre>';
+        if ($comment >=1 ) {
+            $commmentary = $this->Commentarys->find('all')->where(['article_id'=> $id]);
+            if ($this->Commentarys->delete($commmentary)) {
+                $this->Flash->success(__('The article has been deleted.'));
+            }
+        }
+        exit();*/
             if ($this->Articles->delete($article)) {
                 $this->Flash->success(__('The article has been deleted.'));
             } else {
                 $this->Flash->error(__('The article could not be deleted. Please, try again.'));
             }
-        }
         return $this->redirect(['action' => 'index']);
     }
 }

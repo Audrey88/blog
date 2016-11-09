@@ -35,9 +35,7 @@
                     <a href="<?= $this->Url->build(['controller' => 'Articles', 'action' => 'edit', $article->id]); ?>">
                         <i class="glyphicon glyphicon-pencil"></i>
                     </a>
-                    <a href="<?= $this->Url->build(['controller' => 'Articles', 'action' => 'delete', $article->id], ['confirm' => __('Are you sure you want to delete # {0}?', $article->id)]); ?>">
-                        <i class="glyphicon glyphicon-remove"></i>
-                    </a>
+                    <?= $this->Form->postLink(__('Supprimer'), ['action' => 'delete', $article->id], ['confirm' => __('Are you sure you want to delete # {0}?', $article->id)]) ?>
                 </td>
             </tr>
         <?php endforeach; ?>
