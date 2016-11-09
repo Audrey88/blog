@@ -37,7 +37,7 @@
                         </div>
                         <div class="col-md-6">
                             <label class="label-control">Photo:</label>
-                            <?php echo $this->Form->input('picture',['type'=>'file', 'label'=>false]); ?>
+                            <?php echo $this->Form->input('picture',['type'=>'file','class' => 'form-control', 'label'=>false]); ?>
                         </div>
                     </div>
                 </fieldset>

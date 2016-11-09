@@ -78,7 +78,6 @@ class ArticlesTable extends Table
             ->notEmpty('publish');
 
         $validator
-            ->requirePresence('picture_url', 'create')
             ->notEmpty('picture_url');
 
         $validator
