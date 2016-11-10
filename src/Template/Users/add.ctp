@@ -58,7 +58,7 @@
                                 </div>
                             </div>
                         </fieldset>
-                        <?= $this->Form->button(__('Submit')) ?>
+                        <?= $this->Form->button('Envoyer le formulaire', ['class' => 'btn btn-info pull-right']); ?>
                         <?= $this->Form->end() ?>
                     </div>
                 </div>
