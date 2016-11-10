@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Utilisateur;
 
 use App\Controller\AppController;
 
@@ -21,7 +21,8 @@ class CommentarysController extends AppController
         $this->paginate = [
             'contain' => ['Users', 'Articles']
         ];
-        $commentarys = $this->paginate($this->Commentarys);
+        $id = $this->request->session()->read('Auth')['User']['id'];
+        $commentarys = $this->paginate($this->Commentarys->find('all')->where(['Commentarys.user_id'=> $id]));
 
         $this->set(compact('commentarys'));
         $this->set('_serialize', ['commentarys']);
@@ -52,6 +53,7 @@ class CommentarysController extends AppController
     public function add()
     {
         $commentary = $this->Commentarys->newEntity();
+        $this->request->data['user_id'] = $this->request->session()->read('Auth')['User']['id'];
         if ($this->request->is('post')) {
             $commentary = $this->Commentarys->patchEntity($commentary, $this->request->data);
             if ($this->Commentarys->save($commentary)) {
