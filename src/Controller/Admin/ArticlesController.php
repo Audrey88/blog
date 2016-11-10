@@ -100,6 +100,8 @@ class ArticlesController extends AppController
                 $picture = $this->Upload->getPicture($this->request->data['picture'], 'article', $article->id, 400, 200, false);
                 $this->request->data['picture_url'] = $picture;
             }
+            $date = Time::now();
+            $this->request->data['date_publish'] = $date;
             $article = $this->Articles->patchEntity($article, $this->request->data);
             if ($this->Articles->save($article)) {
                 $this->Flash->success(__('The article has been saved.'));

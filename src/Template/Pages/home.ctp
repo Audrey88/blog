@@ -19,7 +19,7 @@ use Cake\Datasource\ConnectionManager;
 use Cake\Error\Debugger;
 use Cake\Network\Exception\NotFoundException;
 
-$this->layout = 'default';
+$this->layout = 'front';
 
 if (!Configure::read('debug')):
     throw new NotFoundException('Please replace src/Template/Pages/home.ctp with your own version.');
@@ -36,24 +36,111 @@ $cakeDescription = 'Bienvenue sur le blog de Audrey';
         <?= $cakeDescription ?>
     </title>
     <?= $this->Html->meta('icon') ?>
-    <?= $this->Html->css('base.css') ?>
     <?= $this->Html->css('bootstrap.min.css') ?>
-    <?= $this->Html->css('bootstrap.min.css.map') ?>
-    <?= $this->Html->css('cake.css') ?>
+    <?= $this->Html->css('front.css') ?>
 </head>
 <body class="home">
 <div class="page-content">
     <div class="container">
         <div class="page-content-inner">
-            <?= $this->fetch('content') ?>
+            <div class="row">
+                <div class="col-sm-3 hidden-xs hidden-sm">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-info">
+                                <div class="panel panel-heading">
+                                    Les administrateurs de ce blog :
+                                </div>
+                                <div class="panel-body text-center">
+                                    <?php foreach ($users as $user): ?>
+                                        <div class="col-md-12">
+                                            <?= $this->Html->image('/img/user/' . $user->avatar, ['class' => 'img-responsive img-circle icon-logged center-block']) ?>
+                                        </div>
+                                        <h4><?= $user->firstname ?>&nbsp;<?= $user->lastname ?></h4>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="panel panel-info">
+                                <div class="panel panel-heading">
+                                    Les derniers inscrit :
+                                </div>
+                                <div class="panel-body text-center">
+                                    <?php foreach ($utilisateur as $uti): ?>
+                                        <h4><?= $uti->firstname ?>&nbsp;<?= $uti->lastname ?></h4>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9 col-sm-12">
+                    <div class="row">
+                        <?php foreach ($articles as $article): ?>
+                        <div class="panel panel-info text-center">
+                            <div class="panel-heading">
+                                <h3><?= $article->titre ?></h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="col-md-12">
+                                    <?= $this->Html->image('/img/article/' . $article->picture_url, ['class' => 'img-responsive center-block']) ?>
+                                </div>
+                                <div class="col-md-12">
+                                    <h4>Catégorie:</h4>
+                                    <p><?= $article->has('category') ? $article->category->name : '' ?></p>
+                                    <h4>description :</h4>
+                                    <p> <?= $article->description ?>
+                                    </p>
+                                </div>
+                                <div class="related">
+                                    <div id="bull" class="text-left">
+                                        <i class="glyphicon glyphicon-comment"></i>
+                                        <?php $nb =0; ?>
+                                        <?php foreach ($article->commentarys as $commentarys): ?>
+                                            <?php count($commentarys->description);
+                                            $nb++;
+                                            ?>
+                                        <?php endforeach; ?>
+                                        <?= $nb; ?>
+                                    </div>
+                                    <div id="commentaire" style="display: none" class="text-left">
+                                    <?php foreach ($article->commentarys as $commentarys): ?>
+                                        <p>Commentaire
+                                                de <?= $commentarys->user->lastname ?>  <?= $commentarys->user->firstname ?>
+                                                :
+                                        </p>
+                                        <div class="well">
+                                            <?= h($commentarys->description) ?>
+                                        </div>
+                                    <?php endforeach; ?>
+                                        </div>
+                                </div>
+                            </div>
+                            <p class="pull-right">
+                                Publié le
+                                <?= $article->date_publish ?>
+                            </p>
+                        </div>
+                            <?php endforeach; ?>
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<div class="scroll-to-top">
-    <i class="icon-arrow-up"></i>
-</div>
+    <div class="scroll-to-top">
+        <i class="icon-arrow-up"></i>
+    </div>
 
-<?= $this->Html->script('jquery.js') ?>
-<?= $this->Html->script('bootstrap.min.js') ?>
+    <?= $this->Html->script('jquery.js') ?>
+    <?= $this->Html->script('bootstrap.min.js') ?>
 </body>
+<script>
+    $(document).ready(function(){
+        $("#bull").css('cursor','Pointer');
+        $("#bull").click(function(){
+            $("#commentaire").toggle('slow');
+        });
+    });
+</script>
 </html>

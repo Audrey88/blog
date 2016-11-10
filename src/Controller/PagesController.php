@@ -41,6 +41,23 @@ class PagesController extends AppController
      */
     public function display()
     {
+        $this->loadModel('Articles');
+        $this->loadModel('Users');
+        $this->loadModel('Categories');
+
+        $articles = $this->Articles->find('all')
+            ->contain(['Categories', 'Users','Commentarys.Users'])
+            ->order('date_publish DESC')
+            ->where(['publish'=> 1]);
+
+        $users = $this->Users->find('all')->where(['id'==1]);
+        $utilisateur = $this->Users->find('all')
+            ->where(['id'==2])
+            ->order('id DESC')
+            ->Limit(5);
+        $this->set(compact('articles', 'users', 'utilisateur'));
+        $this->set('_serialize', ['articles']);
+
         $path = func_get_args();
 
         $count = count($path);
@@ -65,5 +82,6 @@ class PagesController extends AppController
             }
             throw new NotFoundException();
         }
+
     }
 }

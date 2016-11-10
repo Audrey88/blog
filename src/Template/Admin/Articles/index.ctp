@@ -58,7 +58,7 @@
             <th><?= $this->Paginator->sort('Photo') ?></th>
             <th><?= $this->Paginator->sort('Titre') ?></th>
             <th><?= $this->Paginator->sort('description') ?></th>
-            *<th><?= $this->Paginator->sort('Catégorie') ?></th>
+            <th><?= $this->Paginator->sort('Catégorie') ?></th>
             <th><?= $this->Paginator->sort('publié') ?></th>
             <th><?= $this->Paginator->sort('commentary_id') ?></th>
             <th><?= $this->Paginator->sort('Action') ?></th>
