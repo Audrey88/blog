@@ -35,9 +35,16 @@ class UsersController extends AppController
                 $this->Flash->error(__('The user could not be saved. Please, try again.'));
             }
         }
-        $roles = $this->Users->Roles->find('list', ['limit' => 200]);
+        $roles = $this->Users->Roles->find('list', [
+            'conditions' =>['id !='=>1],
+            'limit' => 200]);
         $articles = $this->Users->Articles->find('list', ['limit' => 200]);
         $this->set(compact('user', 'roles', 'articles'));
         $this->set('_serialize', ['user']);
+    }
+    public function logout()
+    {
+        $this->request->session()->destroy();
+        return $this->redirect($this->Auth->logout());
     }
 }

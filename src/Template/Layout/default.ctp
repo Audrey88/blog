@@ -39,7 +39,7 @@ $cakeDescription = 'Blog-original';
 <body>
 <header>
     <nav id="menu">
-        <div class="navbar navbar-default">
+        <div class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -77,12 +77,9 @@ $cakeDescription = 'Blog-original';
                         <a id="connexion" href="<?= $this->Url->build(['controller' => 'users', 'action' => 'login', 'prefix' => 'utilisateur']) ?>">Connexion</a>
                             </li>
                         <li>
-                            <a id="connexion" href="
-                            <?= $this->Url->build(['controller' => 'users', 'action' => 'add', 'prefix' => false]) ?>">
-                             S'inscrire   </a>
-                            </li>
-
-                            <?php endif;?>
+                            <a id="connexion" href=" <?= $this->Url->build(['controller' => 'users', 'action' => 'add', 'prefix' => false]) ?>">S'inscrire </a>
+                        </li>
+                        <?php endif;?>
                     </ul>
                 </div>
             </div>

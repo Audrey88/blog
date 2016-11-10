@@ -1,0 +1,79 @@
+#connexion{
+    background-color: #2d0065;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    margin-right: 5%;
+    margin-top: 5px;
+}
+.icon-logged {
+    width: 60px;
+}
+#connexion:hover{
+    background-color: #9671e2;
+}
+
+#menu li:hover{
+    background-color: #9671e2;
+}
+#menu .navbar{
+    background-color: #2d0065;
+
+}
+#menu ul{
+    margin-left: 5%;
+}
+
+#menu a{
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+}
+
+#menu .navbar-brand{
+    margin-left: 15%;
+    text-align: center;
+}
+
+#menu .navbar-brand:hover, .navbar-brand.active{
+    background-color: #9671e2;
+}
+#menu .navbar-nav>.active>a {
+    background-color: #9671e2;
+}
+
+.page-logo{
+    margin-left: 5%;
+    margin-top: 5px;
+}
+
+footer{
+    background-color: #2d0065;
+    color: white;
+}
+.panel-info {
+    border-color: #9671e2;
+}
+
+.panel-info > .panel-heading {
+    color: white;
+    background-color: #2d0065;
+    border-color: #9671e2;
+}
+.panel-info > .panel-heading + .panel-collapse > .panel-body {
+    border-top-color: #9671e2;
+}
+.panel-info > .panel-heading .badge {
+    color: #9671e2;
+    background-color: #2d0065;
+}
+.panel-info > .panel-footer + .panel-collapse > .panel-body {
+    border-bottom-color: #9671e2;
+}
+
+/*
+#background{
+    background-image: url("/img/background.jpg");
+    z-index: 1;
+    filter: alpha(opacity=0.5);
+}*/
