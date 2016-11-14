@@ -73,7 +73,8 @@ $cakeDescription = 'Blog-original';
                         <li><a href="<?= $this->Url->build(['controller' => 'categories', 'action' => 'add', 'prefix' => 'admin']) ?>">Ajouter Catégories</a> </li>
                         <li><a href="<?= $this->Url->build(['controller' => 'commentarys', 'action' => 'index', 'prefix' => 'admin']) ?>">Mes commentaires</a> </li>
                         <?php else: ?>
-                            <li><a href="<?= $this->Url->build(['controller' => 'commentarys', 'action' => 'index', 'prefix' => 'utilisateur']) ?>">Mes commentaires</a> </li>
+                            <li><a href="<?= $this->Url->build(['controller' => 'commentarys', 'action' => 'index', 'prefix' => 'utilisateur']) ?>">Mes commentaires</a> 
+                            </li>
                         <?php endif; ?>
                         <li class="right-align"><a href="<?= $this->Url->build(['controller' => 'users', 'action' => 'logout']) ?>">se déconnecter</a> </li>
                         <?php else: ?>

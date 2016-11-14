@@ -38,6 +38,11 @@ $cakeDescription = 'Bienvenue sur le blog de Audrey';
     <?= $this->Html->meta('icon') ?>
     <?= $this->Html->css('bootstrap.min.css') ?>
     <?= $this->Html->css('front.css') ?>
+    <style>
+        .big-text{
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body class="home">
 <div class="page-content">
@@ -56,7 +61,7 @@ $cakeDescription = 'Bienvenue sur le blog de Audrey';
                                         <div class="col-md-12">
                                             <?= $this->Html->image('/img/user/' . $user->avatar, ['class' => 'img-responsive img-circle icon-logged center-block']) ?>
                                         </div>
-                                        <h4><?= $user->firstname ?>&nbsp;<?= $user->lastname ?></h4>
+                                        <h4><?= $user->username ?></h4>
                                     <?php endforeach; ?>
                                 </div>
                             </div>
@@ -67,7 +72,7 @@ $cakeDescription = 'Bienvenue sur le blog de Audrey';
                                 </div>
                                 <div class="panel-body text-center">
                                     <?php foreach ($utilisateur as $uti): ?>
-                                        <h4><?= $uti->firstname ?>&nbsp;<?= $uti->lastname ?></h4>
+                                        <h4><?= $uti->username ?></h4>
                                     <?php endforeach; ?>
                                 </div>
                             </div>
@@ -82,18 +87,18 @@ $cakeDescription = 'Bienvenue sur le blog de Audrey';
                                     <h3><?= $article->titre ?></h3>
                                 </div>
                                 <div class="panel-body">
-                                    <div class="col-md-12">
+                                    <div class="col-md-12 img" id="<?=$article->id?>">
                                         <?= $this->Html->image('/img/article/' . $article->picture_url, ['class' => 'img-responsive center-block']) ?>
                                     </div>
                                     <div class="col-md-12">
                                         <h4>Catégorie:</h4>
                                         <p><?= $article->has('category') ? $article->category->name : '' ?></p>
                                         <h4>description :</h4>
-                                        <p> <?= $article->description ?>
+                                        <p class="big"> <?= $article->description ?>
                                         </p>
                                     </div>
                                     <div class="related text-left col-md-8">
-                                        <div id="<?= $article->id ?>" class="menu">
+                                        <div id="<?= $article->id ?>" class="comments">
                                             <i class="glyphicon glyphicon-comment"></i>
                                             <?php $nb = 0; ?>
                                             <?php foreach ($article->commentarys as $commentarys): ?>
@@ -103,13 +108,9 @@ $cakeDescription = 'Bienvenue sur le blog de Audrey';
                                             <?php endforeach; ?>
                                             <?= $nb; ?>
                                         </div>
-                                        <div id="commentaire-<?= $article->id ?>" style="display: none"
-                                             class="text-left">
+                                        <div id="commentaire-<?= $article->id ?>" style="display: none" class="text-left">
                                             <?php foreach ($article->commentarys as $commentarys): ?>
-                                                <p>Commentaire
-                                                    de <?= $commentarys->user->username ?>
-                                                    :
-                                                </p>
+                                                <p>Commentaire de <?= $commentarys->user->username ?>:</p>
                                                 <div class="well">
                                                     <?= h($commentarys->description) ?>
                                                 </div>
@@ -148,11 +149,17 @@ $cakeDescription = 'Bienvenue sur le blog de Audrey';
 </body>
 <script>
     $(document).ready(function () {
-        $("div.menu").css('cursor', 'Pointer');
-        $('div.menu').bind('click', function () {
+        $("div.comments").css('cursor', 'Pointer');
+        $('div.comments').bind('click', function () {
             var currentId = $(this).attr('id');
             $('#commentaire-' + currentId + '').toggle('slow');
             // $(this).attr('id');  gets the id of a clicked link that has a class of menu
+        });
+        $("div.img").hover(function () {
+            var currentId = $(this).attr('id');
+            $(currentId).effect("size", {
+                to: {width: 400, height: 400}
+            }, 1000);
         });
     });
 </script>

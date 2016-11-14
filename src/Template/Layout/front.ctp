@@ -45,9 +45,9 @@
                             <?php
                             if (isset($this->request->session()->read('Auth')['User']['id'])): ?>
                             <?php if ($this->request->session()->read('Auth')['User']['role_id']==1): ?>
-                            <a href="<?= $this->Url->build(['controller' => 'users', 'action' => 'view', $this->request->session()->read('Auth')['User']['id'], 'prefix' => 'admin']) ?>">Mon compte</a>
+                            <a href="<?= $this->Url->build(['controller' => 'users', 'action' => 'view', $this->request->session()->read('Auth')['User']['id'], 'prefix' => 'admin']) ?>">Espace personnel</a>
                             <?php else: ?>
-                            <a href="<?= $this->Url->build(['controller' => 'users', 'action' => 'view', $this->request->session()->read('Auth')['User']['id'], 'prefix' => 'utilisateur']) ?>">Mon compte</a>
+                            <a href="<?= $this->Url->build(['controller' => 'users', 'action' => 'view', $this->request->session()->read('Auth')['User']['id'], 'prefix' => 'utilisateur']) ?>">Espace personnel</a>
                             <?php endif; ?>
                         </li>
                         <li class="right-align"><a

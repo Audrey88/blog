@@ -28,7 +28,7 @@
                 <td><?= $commentary->has('user') ? $this->Html->link($commentary->user->id, ['controller' => 'Users', 'action' => 'view', $commentary->user->id]) : '' ?></td>
                 <td><?= $commentary->has('article') ? $this->Html->link($commentary->article->id, ['controller' => 'Articles', 'action' => 'view', $commentary->article->id]) : '' ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $commentary->id]) ?>
+                    <?= $this->Html->link(__('View'), ['controller'=>'articles','action' => 'view',$commentary->article->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $commentary->id]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $commentary->id], ['confirm' => __('Are you sure you want to delete # {0}?', $commentary->id)]) ?>
                 </td>
