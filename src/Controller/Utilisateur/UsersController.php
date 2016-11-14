@@ -43,33 +43,6 @@ class UsersController extends AppController
     }
 
     /**
-     * Add method
-     *
-     * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
-     */
-    public function add()
-    {
-        $user = $this->Users->newEntity();
-        if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->data);
-            if ($this->Users->save($user)) {
-                $picture = $this->Upload->getPicture($this->request->data['avatar_url'],'user',$user->id, 300, 300, false);
-                $this->request->data['avatar'] = $picture;
-                $user = $this->Users->patchEntity($user, $this->request->data);
-                $this->Users->save($user);
-                $this->Flash->success(__('The user has been saved.'));
-               
-            } else {
-                $this->Flash->error(__('The user could not be saved. Please, try again.'));
-            }
-        }
-        $roles = $this->Users->Roles->find('list', ['limit' => 200]);
-        $articles = $this->Users->Articles->find('list', ['limit' => 200]);
-        $this->set(compact('user', 'roles', 'articles'));
-        $this->set('_serialize', ['user']);
-    }
-
-    /**
      * Edit method
      *
      * @param string|null $id User id.
@@ -84,14 +57,16 @@ class UsersController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->data);
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
+                $this->Flash->success(__('La modification a bien été enregistrée'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view',$id]);
             } else {
                 $this->Flash->error(__('The user could not be saved. Please, try again.'));
             }
         }
-        $roles = $this->Users->Roles->find('list', ['limit' => 200]);
+        $roles = $this->Users->Roles->find('list', [
+            'conditions' =>['id !='=>1],
+            'limit' => 200]);
         $articles = $this->Users->Articles->find('list', ['limit' => 200]);
         $this->set(compact('user', 'roles', 'articles'));
         $this->set('_serialize', ['user']);
@@ -104,19 +79,6 @@ class UsersController extends AppController
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $user = $this->Users->get($id);
-        if ($this->Users->delete($user)) {
-            $this->Flash->success(__('The user has been deleted.'));
-        } else {
-            $this->Flash->error(__('The user could not be deleted. Please, try again.'));
-        }
-
-        return $this->redirect(['action' => 'index']);
-    }
-
     public function login()
     {
         if ($this->request->is('post')) {

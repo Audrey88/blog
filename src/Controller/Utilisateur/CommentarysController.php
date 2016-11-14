@@ -50,10 +50,11 @@ class CommentarysController extends AppController
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($id = null)
     {
         $commentary = $this->Commentarys->newEntity();
         $this->request->data['user_id'] = $this->request->session()->read('Auth')['User']['id'];
+        $this->request->data['article_id']= $id;
         if ($this->request->is('post')) {
             $commentary = $this->Commentarys->patchEntity($commentary, $this->request->data);
             if ($this->Commentarys->save($commentary)) {
@@ -65,7 +66,9 @@ class CommentarysController extends AppController
             }
         }
         $users = $this->Commentarys->Users->find('list', ['limit' => 200]);
-        $articles = $this->Commentarys->Articles->find('list', ['limit' => 200]);
+        $articles = $this->Commentarys->Articles->find('list', [
+            'conditions' => ['Articles.id'=> $id],
+            'limit' => 200])->contain('Categories');
         $this->set(compact('commentary', 'users', 'articles'));
         $this->set('_serialize', ['commentary']);
     }

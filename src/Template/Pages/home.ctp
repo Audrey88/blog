@@ -77,52 +77,63 @@ $cakeDescription = 'Bienvenue sur le blog de Audrey';
                 <div class="col-md-9 col-sm-12">
                     <div class="row">
                         <?php foreach ($articles as $article): ?>
-                        <div class="panel panel-info text-center">
-                            <div class="panel-heading">
-                                <h3><?= $article->titre ?></h3>
-                            </div>
-                            <div class="panel-body">
-                                <div class="col-md-12">
-                                    <?= $this->Html->image('/img/article/' . $article->picture_url, ['class' => 'img-responsive center-block']) ?>
+                            <div class="panel panel-info text-center">
+                                <div class="panel-heading">
+                                    <h3><?= $article->titre ?></h3>
                                 </div>
-                                <div class="col-md-12">
-                                    <h4>Catégorie:</h4>
-                                    <p><?= $article->has('category') ? $article->category->name : '' ?></p>
-                                    <h4>description :</h4>
-                                    <p> <?= $article->description ?>
-                                    </p>
-                                </div>
-                                <div class="related">
-                                    <div id="bull" class="text-left">
-                                        <i class="glyphicon glyphicon-comment"></i>
-                                        <?php $nb =0; ?>
-                                        <?php foreach ($article->commentarys as $commentarys): ?>
-                                            <?php count($commentarys->description);
-                                            $nb++;
-                                            ?>
-                                        <?php endforeach; ?>
-                                        <?= $nb; ?>
+                                <div class="panel-body">
+                                    <div class="col-md-12">
+                                        <?= $this->Html->image('/img/article/' . $article->picture_url, ['class' => 'img-responsive center-block']) ?>
                                     </div>
-                                    <div id="commentaire" style="display: none" class="text-left">
-                                    <?php foreach ($article->commentarys as $commentarys): ?>
-                                        <p>Commentaire
-                                                de <?= $commentarys->user->lastname ?>  <?= $commentarys->user->firstname ?>
-                                                :
+                                    <div class="col-md-12">
+                                        <h4>Catégorie:</h4>
+                                        <p><?= $article->has('category') ? $article->category->name : '' ?></p>
+                                        <h4>description :</h4>
+                                        <p> <?= $article->description ?>
                                         </p>
-                                        <div class="well">
-                                            <?= h($commentarys->description) ?>
+                                    </div>
+                                    <div class="related text-left col-md-8">
+                                        <div id="<?= $article->id ?>" class="menu">
+                                            <i class="glyphicon glyphicon-comment"></i>
+                                            <?php $nb = 0; ?>
+                                            <?php foreach ($article->commentarys as $commentarys): ?>
+                                                <?php count($commentarys->description);
+                                                $nb++;
+                                                ?>
+                                            <?php endforeach; ?>
+                                            <?= $nb; ?>
                                         </div>
-                                    <?php endforeach; ?>
+                                        <div id="commentaire-<?= $article->id ?>" style="display: none"
+                                             class="text-left">
+                                            <?php foreach ($article->commentarys as $commentarys): ?>
+                                                <p>Commentaire
+                                                    de <?= $commentarys->user->username ?>
+                                                    :
+                                                </p>
+                                                <div class="well">
+                                                    <?= h($commentarys->description) ?>
+                                                </div>
+                                            <?php endforeach; ?>
+                                            <?php if (isset($this->request->session()->read('Auth')['User']['id']) == 2): ?>
+                                                <?= $this->Form->create($commentary, ['url' => ['controller' => 'commentarys', 'action' => 'add', $article->id, 'prefix' => 'utilisateur']]) ?>
+                                                <fieldset>
+                                                    <label>Ajouter un commentaire :</label>
+                                                    <?php
+                                                    echo $this->Form->input('description', ['label' => false, 'class' => 'well form-control']);
+                                                    ?>
+                                                </fieldset>
+                                                <?= $this->Form->button(__('Submit')) ?>
+                                                <?= $this->Form->end() ?>
+                                            <?php endif; ?>
                                         </div>
+                                    </div>
                                 </div>
+                                <p class="pull-right">
+                                    Publié le
+                                    <?= $article->date_publish ?>
+                                </p>
                             </div>
-                            <p class="pull-right">
-                                Publié le
-                                <?= $article->date_publish ?>
-                            </p>
-                        </div>
-                            <?php endforeach; ?>
-
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>
@@ -131,15 +142,17 @@ $cakeDescription = 'Bienvenue sur le blog de Audrey';
     <div class="scroll-to-top">
         <i class="icon-arrow-up"></i>
     </div>
-
+</div>
     <?= $this->Html->script('jquery.js') ?>
     <?= $this->Html->script('bootstrap.min.js') ?>
 </body>
 <script>
-    $(document).ready(function(){
-        $("#bull").css('cursor','Pointer');
-        $("#bull").click(function(){
-            $("#commentaire").toggle('slow');
+    $(document).ready(function () {
+        $("div.menu").css('cursor', 'Pointer');
+        $('div.menu').bind('click', function () {
+            var currentId = $(this).attr('id');
+            $('#commentaire-' + currentId + '').toggle('slow');
+            // $(this).attr('id');  gets the id of a clicked link that has a class of menu
         });
     });
 </script>
