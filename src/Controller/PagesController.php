@@ -44,6 +44,7 @@ class PagesController extends AppController
         $this->loadModel('Articles');
         $this->loadModel('Users');
         $this->loadModel('Categories');
+        $this->loadModel('Commentarys');
 
         $articles = $this->Articles->find('all')
             ->contain(['Categories', 'Users','Commentarys.Users'])
@@ -55,7 +56,10 @@ class PagesController extends AppController
             ->where(['id'==2])
             ->order('id DESC')
             ->Limit(5);
-        $this->set(compact('articles', 'users', 'utilisateur'));
+
+        $commentary = $this->Commentarys->newEntity();
+
+        $this->set(compact('articles', 'users', 'utilisateur', 'commentary'));
         $this->set('_serialize', ['articles']);
 
         $path = func_get_args();

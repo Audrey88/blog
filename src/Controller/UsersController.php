@@ -29,7 +29,12 @@ class UsersController extends AppController
                 $this->request->data['avatar'] = $picture;
                 $user = $this->Users->patchEntity($user, $this->request->data);
                 $this->Users->save($user);
+
                 $this->Flash->success(__('The user has been saved.'));
+                return $this->redirect(
+                    ['controller' => 'users', 'action' => 'login', 'prefix'=>'utilisateur']
+                );
+
                
             } else {
                 $this->Flash->error(__('The user could not be saved. Please, try again.'));
