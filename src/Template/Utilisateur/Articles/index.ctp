@@ -20,7 +20,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="col-md-12">
-                            <?= $this->Html->image('/img/article/' . $article->picture_url, ['class' => 'img-responsive center-block']) ?>
+                            <?= $this->Html->image('/img/article/800x800/' . $article->picture_url, ['class' => 'img-responsive center-block']) ?>
                         </div>
                         <div class="col-md-12">
                             <h4>Catégorie:</h4>

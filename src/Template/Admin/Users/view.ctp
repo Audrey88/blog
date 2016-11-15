@@ -14,7 +14,7 @@
                     <div class="col-md-3">
                         <ul class="list-unstyled">
                             <li>
-                                <?= $this->Html->image('/img/user/'.$user->avatar, ['class' => 'img-responsive']) ?>
+                                <?= $this->Html->image('/img/user/100x100/'.$user->avatar, ['class' => 'img-responsive']) ?>
                             </li>
                         </ul>
                     </div>

@@ -41,7 +41,18 @@
         </p>
         <div class="well">
             <?= h($commentarys->description) ?>
+            <?php if ($commentarys->user_id == $this->request->session()->read('Auth')['User']['id']): ?>
             <?= $this->Form->postLink('Delete', ['controller' => 'Commentarys', 'action' => 'delete', $commentarys->id], ['confirm' => __('Are you sure you want to delete # {0}?', $commentarys->id),'class' => 'pull-right']) ?>
+            <?php endif; ?>
         </div>
     <?php endforeach; ?>
+    <?= $this->Form->create($commentary, ['url' => ['controller' => 'commentarys', 'action' => 'add', $article->id, 'prefix' => 'utilisateur']]) ?>
+    <fieldset>
+        <label>Ajouter un commentaire :</label>
+        <?php
+        echo $this->Form->input('description', ['label' => false, 'class' => 'well form-control']);
+        ?>
+    </fieldset>
+    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->end() ?>
 </div>

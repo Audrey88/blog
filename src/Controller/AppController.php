@@ -46,7 +46,7 @@ class AppController extends Controller
         $this->loadComponent('Upload');
         $this->loadComponent('Auth', [
             'loginRedirect' => [
-                'controller' => 'Users',
+                'controller' => 'Articles',
                 'action' => 'index',
                 'prefix' => 'admin'
             ],

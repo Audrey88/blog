@@ -59,7 +59,7 @@ $cakeDescription = 'Bienvenue sur le blog de Audrey';
                                 <div class="panel-body text-center">
                                     <?php foreach ($users as $user): ?>
                                         <div class="col-md-12">
-                                            <?= $this->Html->image('/img/user/' . $user->avatar, ['class' => 'img-responsive img-circle icon-logged center-block']) ?>
+                                            <?= $this->Html->image('/img/user/100x100/' . $user->avatar, ['class' => 'img-responsive img-circle icon-logged center-block']) ?>
                                         </div>
                                         <h4><?= $user->username ?></h4>
                                     <?php endforeach; ?>
@@ -88,7 +88,7 @@ $cakeDescription = 'Bienvenue sur le blog de Audrey';
                                 </div>
                                 <div class="panel-body">
                                     <div class="col-md-12 img" id="<?=$article->id?>">
-                                        <?= $this->Html->image('/img/article/' . $article->picture_url, ['class' => 'img-responsive center-block']) ?>
+                                        <?= $this->Html->image('/img/article/800x800/' . $article->picture_url, ['class' => 'img-responsive center-block']) ?>
                                     </div>
                                     <div class="col-md-12">
                                         <h4>Catégorie:</h4>

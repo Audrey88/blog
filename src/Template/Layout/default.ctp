@@ -56,9 +56,9 @@ $cakeDescription = 'Blog-original';
                         <li>
                         <?php
                         if (isset($this->request->session()->read('Auth')['User']['id'])): ?>
+                        <?php if ($this->request->session()->read('Auth')['User']['role_id'] ==1) : ?>
                             <a id="connexion" href="<?= $this->Url->build(['controller' => 'users', 'action' => 'view', $this->request->session()->read('Auth')['User']['id'], 'prefix' => 'admin']) ?>">Mon compte</a>
                         </li>
-                        <?php if ($this->request->session()->read('Auth')['User']['role_id'] ==1) : ?>
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" id="connexion" href="
                             <?= $this->Url->build(['controller' => 'articles', 'action' => 'index', 'prefix' => 'admin']) ?>">
@@ -73,6 +73,8 @@ $cakeDescription = 'Blog-original';
                         <li><a href="<?= $this->Url->build(['controller' => 'categories', 'action' => 'add', 'prefix' => 'admin']) ?>">Ajouter Catégories</a> </li>
                         <li><a href="<?= $this->Url->build(['controller' => 'commentarys', 'action' => 'index', 'prefix' => 'admin']) ?>">Mes commentaires</a> </li>
                         <?php else: ?>
+                            <a id="connexion" href="<?= $this->Url->build(['controller' => 'users', 'action' => 'view', $this->request->session()->read('Auth')['User']['id'], 'prefix' => 'utilisateur']) ?>">Mon compte</a>
+                            </li>
                             <li><a href="<?= $this->Url->build(['controller' => 'commentarys', 'action' => 'index', 'prefix' => 'utilisateur']) ?>">Mes commentaires</a> 
                             </li>
                         <?php endif; ?>

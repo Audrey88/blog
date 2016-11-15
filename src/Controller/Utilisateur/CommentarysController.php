@@ -19,7 +19,8 @@ class CommentarysController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Users', 'Articles']
+            'contain' => ['Users', 'Articles'],
+            'limit' => 10
         ];
         $id = $this->request->session()->read('Auth')['User']['id'];
         $commentarys = $this->paginate($this->Commentarys->find('all')->where(['Commentarys.user_id'=> $id]));
@@ -43,7 +44,7 @@ class CommentarysController extends AppController
             if ($this->Commentarys->save($commentary)) {
                 $this->Flash->success(__('The commentary has been saved.'));
 
-                return $this->redirect(['controller'=>'pages','action' => 'display', 'prefix'=>false]);
+                return $this->redirect($this->referer());
             } else {
                 $this->Flash->error(__('The commentary could not be saved. Please, try again.'));
             }
