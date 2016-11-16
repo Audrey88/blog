@@ -1,8 +1,7 @@
 <?php
 namespace App\Controller\Admin;
-
 use App\Controller\AppController;
-use Cake\I18n\Time;
+use Cake\Core\App;use Cake\I18n\Time;
 /**
  * Articles Controller
  *
@@ -67,7 +66,7 @@ class ArticlesController extends AppController
         if ($this->request->is('post')) {
             $article = $this->Articles->patchEntity($article, $this->request->data);
             if ($this->Articles->save($article)) {
-                $picture = $this->Upload->getPicture($this->request->data['picture'],'article',$article->id, 400, 200, false);
+                $picture = $this->Upload->getPicture($this->request->data['picture'],'article',$article->id);
                 $this->request->data['picture_url'] = $picture;
                 $article = $this->Articles->patchEntity($article, $this->request->data);
                 $this->Articles->save($article);
@@ -129,18 +128,8 @@ class ArticlesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $this->loadModel('Commentarys');
         $article = $this->Articles->get($id);
-/*        $comment = $this->Commentarys->find('all')
-            ->select('article_id')
-            ->where(['article_id' => $id])
-            ->count();
-        '<pre>'.print_r($comment).'</pre>';
-        if ($comment >=1 ) {
-            $commmentary = $this->Commentarys->find('all')->where(['article_id'=> $id]);
-            if ($this->Commentarys->delete($commmentary)) {
-                $this->Flash->success(__('The article has been deleted.'));
-            }
-        }
-        exit();*/
+
+        $this->Articles->Commentarys->deleteAll(['article_id'=>$id]);
             if ($this->Articles->delete($article)) {
                 $this->Flash->success(__('The article has been deleted.'));
             } else {

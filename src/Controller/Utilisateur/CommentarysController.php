@@ -19,7 +19,8 @@ class CommentarysController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Users', 'Articles']
+            'contain' => ['Users', 'Articles'],
+            'limit' => 10
         ];
         $id = $this->request->session()->read('Auth')['User']['id'];
         $commentarys = $this->paginate($this->Commentarys->find('all')->where(['Commentarys.user_id'=> $id]));
@@ -27,24 +28,7 @@ class CommentarysController extends AppController
         $this->set(compact('commentarys'));
         $this->set('_serialize', ['commentarys']);
     }
-
-    /**
-     * View method
-     *
-     * @param string|null $id Commentary id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $commentary = $this->Commentarys->get($id, [
-            'contain' => ['Users', 'Articles']
-        ]);
-
-        $this->set('commentary', $commentary);
-        $this->set('_serialize', ['commentary']);
-    }
-
+    
     /**
      * Add method
      *
@@ -60,7 +44,7 @@ class CommentarysController extends AppController
             if ($this->Commentarys->save($commentary)) {
                 $this->Flash->success(__('The commentary has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect($this->referer());
             } else {
                 $this->Flash->error(__('The commentary could not be saved. Please, try again.'));
             }
@@ -89,7 +73,6 @@ class CommentarysController extends AppController
             $commentary = $this->Commentarys->patchEntity($commentary, $this->request->data);
             if ($this->Commentarys->save($commentary)) {
                 $this->Flash->success(__('The commentary has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('The commentary could not be saved. Please, try again.'));

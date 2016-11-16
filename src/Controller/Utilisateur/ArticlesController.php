@@ -48,9 +48,11 @@ class ArticlesController extends AppController
         $article = $this->Articles->get($id, [
             'contain' => ['Categories', 'Users', 'Commentarys.Users']
         ]);
+        $this->loadModel('Commentarys');
+        $commentary = $this->Commentarys->newEntity();
 
         $this->set('article', $article);
-        $this->set(compact('article'));
+        $this->set(compact('article','commentary'));
         $this->set('_serialize', ['article']);
     }
 }

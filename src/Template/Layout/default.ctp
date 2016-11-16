@@ -35,6 +35,17 @@ $cakeDescription = 'Blog-original';
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
+    <style>
+        button{
+            color: #fff;
+            background-color: #337ab7;
+            border-color: #2e6da4;
+        }
+        button:hover {
+            color: #fff;
+            background-color: #286090;
+            border-color: #204d74;
+    </style>
 </head>
 <body>
 <header>
@@ -55,10 +66,13 @@ $cakeDescription = 'Blog-original';
                     <ul class="nav navbar-nav">
                         <li>
                         <?php
+                        // si il y a un utilisateur
                         if (isset($this->request->session()->read('Auth')['User']['id'])): ?>
+
+                        <?php  //si l'utilisateur est admin
+                        if ($this->request->session()->read('Auth')['User']['role_id'] ==1) : ?>
                             <a id="connexion" href="<?= $this->Url->build(['controller' => 'users', 'action' => 'view', $this->request->session()->read('Auth')['User']['id'], 'prefix' => 'admin']) ?>">Mon compte</a>
                         </li>
-                        <?php if ($this->request->session()->read('Auth')['User']['role_id'] ==1) : ?>
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" id="connexion" href="
                             <?= $this->Url->build(['controller' => 'articles', 'action' => 'index', 'prefix' => 'admin']) ?>">
@@ -72,11 +86,23 @@ $cakeDescription = 'Blog-original';
                         </li>
                         <li><a href="<?= $this->Url->build(['controller' => 'categories', 'action' => 'add', 'prefix' => 'admin']) ?>">Ajouter Catégories</a> </li>
                         <li><a href="<?= $this->Url->build(['controller' => 'commentarys', 'action' => 'index', 'prefix' => 'admin']) ?>">Mes commentaires</a> </li>
-                        <?php else: ?>
-                            <li><a href="<?= $this->Url->build(['controller' => 'commentarys', 'action' => 'index', 'prefix' => 'utilisateur']) ?>">Mes commentaires</a> </li>
+
+
+                        <?php //  si l'utilisateur est utilisateur
+                        else: ?>
+                            <a id="connexion" href="<?= $this->Url->build(['controller' => 'users', 'action' => 'view', $this->request->session()->read('Auth')['User']['id'], 'prefix' => 'utilisateur']) ?>">Mon compte</a>
+                            </li>
+                            <li><a href="<?= $this->Url->build(['controller' => 'articles', 'action' => 'index', 'prefix' => 'utilisateur']) ?>">Les articles</a>
+                            </li>
+                            <li><a href="<?= $this->Url->build(['controller' => 'commentarys', 'action' => 'index', 'prefix' => 'utilisateur']) ?>">Mes commentaires</a> 
+                            </li>
                         <?php endif; ?>
+                        <!-- commun au deux -->
                         <li class="right-align"><a href="<?= $this->Url->build(['controller' => 'users', 'action' => 'logout']) ?>">se déconnecter</a> </li>
-                        <?php else: ?>
+
+
+                        <?php  //si non connecté
+                        else: ?>
                         <a id="connexion" href="<?= $this->Url->build(['controller' => 'users', 'action' => 'login', 'prefix' => 'utilisateur']) ?>">Connexion</a>
                             </li>
                         <li>
