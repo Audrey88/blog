@@ -75,6 +75,8 @@ $cakeDescription = 'Blog-original';
                         <?php else: ?>
                             <a id="connexion" href="<?= $this->Url->build(['controller' => 'users', 'action' => 'view', $this->request->session()->read('Auth')['User']['id'], 'prefix' => 'utilisateur']) ?>">Mon compte</a>
                             </li>
+                            <li><a href="<?= $this->Url->build(['controller' => 'articles', 'action' => 'index', 'prefix' => 'utilisateur']) ?>">Les articles</a>
+                            </li>
                             <li><a href="<?= $this->Url->build(['controller' => 'commentarys', 'action' => 'index', 'prefix' => 'utilisateur']) ?>">Mes commentaires</a> 
                             </li>
                         <?php endif; ?>

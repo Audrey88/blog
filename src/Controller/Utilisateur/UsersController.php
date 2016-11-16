@@ -86,10 +86,10 @@ class UsersController extends AppController
             if ($user) {
                 $this->Auth->setUser($user);
                 if ($user['role_id']===1){
-                return $this->redirect(['controller' => 'Users', 'action' => 'view', 'prefix' => 'admin',$this->Auth->user('id')]);
+                return $this->redirect(['controller' => 'Articles', 'action' => 'index', 'prefix' => 'admin']);
                 }
                 else {
-                    return $this->redirect(['controller' => 'Users', 'action' => 'view', 'prefix' => 'utilisateur',$this->Auth->user('id')]);
+                    return $this->redirect(['controller' => 'Articles', 'action' => 'index', 'prefix' => 'utilisateur']);
                 }
             }
             $this->Flash->error(__('Invalid username or password, try again'));

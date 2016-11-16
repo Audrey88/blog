@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Controller\AppController;
 
@@ -10,7 +10,19 @@ use App\Controller\AppController;
  */
 class CommentarysController extends AppController
 {
-    
+    public function index()
+    {
+        $this->paginate = [
+            'contain' => ['Users', 'Articles'],
+            'limit' => 10
+        ];
+        $id = $this->request->session()->read('Auth')['User']['id'];
+        $commentarys = $this->paginate($this->Commentarys->find('all')->where(['Commentarys.user_id'=> $id]));
+
+        $this->set(compact('commentarys'));
+        $this->set('_serialize', ['commentarys']);
+    }
+
     /**
      * Delete method
      *

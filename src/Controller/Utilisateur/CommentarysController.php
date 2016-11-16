@@ -67,7 +67,7 @@ class CommentarysController extends AppController
     public function edit($id = null)
     {
         $commentary = $this->Commentarys->get($id, [
-            'contain' => []
+            'contain' => ['Articles', 'Users']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $commentary = $this->Commentarys->patchEntity($commentary, $this->request->data);

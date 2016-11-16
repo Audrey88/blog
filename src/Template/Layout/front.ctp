@@ -23,7 +23,26 @@
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
-
+<style>
+    li {
+        display: block;
+        padding: 5px;
+        -webkit-transition: all .3s ease-out;
+        -moz-transition: all .3s ease-out;
+        -o-transition: all .3s ease-out;
+        transition: all .3s ease-out;
+    }
+    li:hover {
+        -moz-transform: scale(2);
+        -webkit-transform: scale(2);
+        -o-transform: scale(2);
+        transform: scale(2);
+        -ms-transform: scale(2);
+        filter: progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand',
+        M11=2, M12=-0, M21=0, M22=2);
+        z-index: 1;
+    }
+</style>
 </head>
 <header>
     <nav id="menu">
@@ -58,9 +77,10 @@
                             <a id="connexion"
                                href="<?= $this->Url->build(['controller' => 'users', 'action' => 'login', 'prefix' => 'utilisateur']) ?>">Connexion</a>
                             </li>
+                        </ul>
+                        <ul class="navbar nav-right">
                             <li>
-                                <a id="connexion"
-                                   href=" <?= $this->Url->build(['controller' => 'users', 'action' => 'add', 'prefix' => false]) ?>">S'inscrire </a>
+                                <a href=" <?= $this->Url->build(['controller' => 'users', 'action' => 'add', 'prefix' => false]) ?>">S'inscrire </a>
                             </li>
                         <?php endif; ?>
                     </ul>

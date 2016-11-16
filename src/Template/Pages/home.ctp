@@ -38,11 +38,6 @@ $cakeDescription = 'Bienvenue sur le blog de Audrey';
     <?= $this->Html->meta('icon') ?>
     <?= $this->Html->css('bootstrap.min.css') ?>
     <?= $this->Html->css('front.css') ?>
-    <style>
-        .big-text{
-            font-size: 18px;
-        }
-    </style>
 </head>
 <body class="home">
 <div class="page-content">
@@ -87,7 +82,7 @@ $cakeDescription = 'Bienvenue sur le blog de Audrey';
                                     <h3><?= $article->titre ?></h3>
                                 </div>
                                 <div class="panel-body">
-                                    <div class="col-md-12 img" id="<?=$article->id?>">
+                                    <div class="col-md-12 img grow" id="<?=$article->id?>">
                                         <?= $this->Html->image('/img/article/800x800/' . $article->picture_url, ['class' => 'img-responsive center-block']) ?>
                                     </div>
                                     <div class="col-md-12">

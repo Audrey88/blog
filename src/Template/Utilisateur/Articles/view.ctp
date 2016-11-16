@@ -10,11 +10,7 @@
     <div class="container">
         <div class="panel panel-info text-center">
             <div class="panel-heading">
-                <h3><?= h($article->titre) ?>
-                    <a href="<?= $this->Url->build(['controller' => 'Articles', 'action' => 'edit', $article->id]); ?>" class="pull-right">
-                        <i class="glyphicon glyphicon-pencil"></i>
-                    </a>
-                </h3>
+                <h3><?= h($article->titre) ?></h3>
             </div>
             <div class="panel-body">
                 <div class="col-md-12">
