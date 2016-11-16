@@ -23,6 +23,50 @@ class CommentarysController extends AppController
         $this->set('_serialize', ['commentarys']);
     }
 
+    public function add($id = null)
+    {
+        $commentary = $this->Commentarys->newEntity();
+        $this->request->data['user_id'] = $this->request->session()->read('Auth')['User']['id'];
+        $this->request->data['article_id']= $id;
+        if ($this->request->is('post')) {
+            $commentary = $this->Commentarys->patchEntity($commentary, $this->request->data);
+            if ($this->Commentarys->save($commentary)) {
+                $this->Flash->success(__('The commentary has been saved.'));
+
+                return $this->redirect($this->referer());
+            } else {
+                $this->Flash->error(__('The commentary could not be saved. Please, try again.'));
+            }
+        }
+        $users = $this->Commentarys->Users->find('list', ['limit' => 200]);
+        $articles = $this->Commentarys->Articles->find('list', [
+            'conditions' => ['Articles.id'=> $id],
+            'limit' => 200])->contain('Categories');
+        $this->set(compact('commentary', 'users', 'articles'));
+        $this->set('_serialize', ['commentary']);
+    }
+
+    
+    public function edit($id = null)
+    {
+        $commentary = $this->Commentarys->get($id, [
+            'contain' => []
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $commentary = $this->Commentarys->patchEntity($commentary, $this->request->data);
+            if ($this->Commentarys->save($commentary)) {
+                $this->Flash->success(__('The commentary has been saved.'));
+                return $this->redirect(['action' => 'index']);
+            } else {
+                $this->Flash->error(__('The commentary could not be saved. Please, try again.'));
+            }
+        }
+        $users = $this->Commentarys->Users->find('list', ['limit' => 200]);
+        $articles = $this->Commentarys->Articles->find('list', ['limit' => 200]);
+        $this->set(compact('commentary', 'users', 'articles'));
+        $this->set('_serialize', ['commentary']);
+    }
+
     /**
      * Delete method
      *

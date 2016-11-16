@@ -48,7 +48,7 @@ $cakeDescription = 'Bienvenue sur le blog de Audrey';
                     <div class="row">
                         <div class="col-md-12">
                             <div class="panel panel-info">
-                                <div class="panel panel-heading">
+                                <div class=" panel-heading">
                                     Les administrateurs de ce blog :
                                 </div>
                                 <div class="panel-body text-center">
@@ -62,7 +62,7 @@ $cakeDescription = 'Bienvenue sur le blog de Audrey';
                             </div>
                             <br>
                             <div class="panel panel-info">
-                                <div class="panel panel-heading">
+                                <div class=" panel-heading">
                                     Les derniers inscrit :
                                 </div>
                                 <div class="panel-body text-center">
@@ -82,7 +82,7 @@ $cakeDescription = 'Bienvenue sur le blog de Audrey';
                                     <h3><?= $article->titre ?></h3>
                                 </div>
                                 <div class="panel-body">
-                                    <div class="col-md-12 img grow" id="<?=$article->id?>">
+                                    <div class="col-md-12 img grow" id="<?= $article->id ?>">
                                         <?= $this->Html->image('/img/article/800x800/' . $article->picture_url, ['class' => 'img-responsive center-block']) ?>
                                     </div>
                                     <div class="col-md-12">
@@ -103,15 +103,20 @@ $cakeDescription = 'Bienvenue sur le blog de Audrey';
                                             <?php endforeach; ?>
                                             <?= $nb; ?>
                                         </div>
-                                        <div id="commentaire-<?= $article->id ?>" style="display: none" class="text-left">
+                                        <div id="commentaire-<?= $article->id ?>" style="display: none"
+                                             class="text-left">
                                             <?php foreach ($article->commentarys as $commentarys): ?>
                                                 <p>Commentaire de <?= $commentarys->user->username ?>:</p>
                                                 <div class="well">
                                                     <?= h($commentarys->description) ?>
                                                 </div>
                                             <?php endforeach; ?>
-                                            <?php if (isset($this->request->session()->read('Auth')['User']['id']) == 2): ?>
-                                                <?= $this->Form->create($commentary, ['url' => ['controller' => 'commentarys', 'action' => 'add', $article->id, 'prefix' => 'utilisateur']]) ?>
+                                            <?php if (isset($this->request->session()->read('Auth')['User']['id'])): ?>
+                                                <?php if ($this->request->session()->read('Auth')['User']['role_id'] == 2): ?>
+                                                    <?= $this->Form->create($commentary, ['url' => ['controller' => 'commentarys', 'action' => 'add', $article->id, 'prefix' => 'utilisateur']]) ?>
+                                                <?php elseif ($this->request->session()->read('Auth')['User']['role_id'] == 1): ?>
+                                                    <?= $this->Form->create($commentary, ['url' => ['controller' => 'commentarys', 'action' => 'add', $article->id, 'prefix' => 'admin']]) ?>
+                                                <?php endif; ?>
                                                 <fieldset>
                                                     <label>Ajouter un commentaire :</label>
                                                     <?php
@@ -139,8 +144,8 @@ $cakeDescription = 'Bienvenue sur le blog de Audrey';
         <i class="icon-arrow-up"></i>
     </div>
 </div>
-    <?= $this->Html->script('jquery.js') ?>
-    <?= $this->Html->script('bootstrap.min.js') ?>
+<?= $this->Html->script('jquery.js') ?>
+<?= $this->Html->script('bootstrap.min.js') ?>
 </body>
 <script>
     $(document).ready(function () {
@@ -150,12 +155,14 @@ $cakeDescription = 'Bienvenue sur le blog de Audrey';
             $('#commentaire-' + currentId + '').toggle('slow');
             // $(this).attr('id');  gets the id of a clicked link that has a class of menu
         });
-        $("div.img").hover(function () {
-            var currentId = $(this).attr('id');
-            $(currentId).effect("size", {
-                to: {width: 400, height: 400}
-            }, 1000);
-        });
+    });
+</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="js/jsnow.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $().jSnow();
     });
 </script>
 </html>

@@ -24,7 +24,7 @@
                     <a href="<?= $this->Url->build(['controller' => 'Articles', 'action' => 'view',$commentary->article->id]); ?>">
                         <i class="glyphicon glyphicon-eye-open"></i>
                     </a>
-                    <a href="<?= $this->Url->build(['controller' => 'articles', 'action' => 'view',  $commentary->article->id]); ?>">
+                    <a href="<?= $this->Url->build(['controller' => 'commentarys', 'action' => 'edit',  $commentary->id]); ?>">
                         <i class="glyphicon glyphicon-pencil"></i>
                     </a>
                     <?= $this->Form->postLink(__(''), ['action' => 'delete', $commentary->id], ['confirm' => __('Are you sure you want to delete # {0}?', $commentary->id),'class'=> 'glyphicon glyphicon-remove']) ?>

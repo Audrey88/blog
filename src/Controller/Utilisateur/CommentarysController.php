@@ -67,13 +67,12 @@ class CommentarysController extends AppController
     public function edit($id = null)
     {
         $commentary = $this->Commentarys->get($id, [
-            'contain' => ['Articles', 'Users']
+            'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $commentary = $this->Commentarys->patchEntity($commentary, $this->request->data);
             if ($this->Commentarys->save($commentary)) {
                 $this->Flash->success(__('The commentary has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('The commentary could not be saved. Please, try again.'));
