@@ -6,7 +6,7 @@
             </div>
             <div class="panel-body">
                 <?php foreach ($categories as $cat): ?>
-                <p><?= $cat->name?></p>
+                <p><?= $this->Html->Link($cat->name,['action'=>'index', $cat->id])?></p>
                 <?php endforeach; ?>
             </div>
         </div>

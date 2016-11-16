@@ -16,16 +16,22 @@ class ArticlesController extends AppController
      *
      * @return \Cake\Network\Response|null
      */
-    public function index()
+    public function index($id =null)
     {
         $this->paginate = [
             'contain' => ['Categories', 'Users', 'Commentarys']
         ];
         $articles = $this->paginate($this->Articles);
-
-        $artPublished = $this->Articles->find('all')
-            ->contain(['Categories', 'Users', 'Commentarys.Users'])
-            ->where(['publish'=> 1]);
+        if (isset($id)=== false) {
+            $artPublished = $this->Articles->find('all')
+                ->contain(['Categories', 'Users', 'Commentarys.Users'])
+                ->where(['publish'=> 1]);
+        } else {
+            $artPublished = $this->Articles->find('all')
+                ->contain(['Categories', 'Users', 'Commentarys.Users'])
+                ->where(['publish' => 1])
+                ->andWhere(['categorie_id' => $id]);
+        }
 
         $this->loadModel('Categories');
         $categories = $this->Categories->find('all');
