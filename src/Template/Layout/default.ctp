@@ -60,7 +60,7 @@ $cakeDescription = 'Blog-original';
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'display','home', 'prefix' => false]) ?>">Accueil</a>
+                    <a class="navbar-brand" href="<?= $this->Url->build(['controller' => 'articles', 'action' => 'index', 'prefix' => false]) ?>">Accueil</a>
                 </div>
                 <div class="collapse navbar-collapse ribbon" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
