@@ -51,15 +51,19 @@ class PagesController extends AppController
             ->order('date_publish DESC')
             ->where(['publish'=> 1]);
 
-        $users = $this->Users->find('all')->where(['id'==1]);
+        $users = $this->Users->find('all')
+            ->where(['role_id'=>1]);
         $utilisateur = $this->Users->find('all')
-            ->where(['id'==2])
+            ->where(['role_id'=>2])
             ->order('id DESC')
             ->Limit(5);
 
         $commentary = $this->Commentarys->newEntity();
+        $this->loadModel('Categories');
+        $categorie = $this->Categories->find('all');
 
-        $this->set(compact('articles', 'users', 'utilisateur', 'commentary'));
+
+        $this->set(compact('articles', 'users', 'utilisateur', 'commentary', 'categorie'));
         $this->set('_serialize', ['articles']);
 
         $path = func_get_args();
