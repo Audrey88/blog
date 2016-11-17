@@ -89,15 +89,21 @@ Router::prefix('Admin', function ($routes) {
     $routes->connect('/utilisateur/ajouter', ['controller' => 'Users', 'action' => 'add']);
     $routes->connect('/utilisateur/editer/*', ['controller' => 'Users', 'action' => 'edit']);
     $routes->connect('/articles', ['controller' => 'Articles', 'action' => 'index']);
+    $routes->connect('/article/ajouter', ['controller' => 'Articles', 'action' => 'add']);
+    $routes->connect('/article/éditer/*', ['controller' => 'Articles', 'action' => 'edit']);
+    $routes->connect('/commentaires', ['controller' => 'Commentarys', 'action' => 'index']);
+    $routes->connect('/catégorie/ajouter', ['controller' => 'categories', 'action' => 'add']);
     $routes->connect('/deconnexion', ['controller'=>'Users', 'action'=>'logout']);
     $routes->fallbacks(DashedRoute::class);
 });
 
+//prefix utilisateur pour les utilisateurs
 Router::prefix('utilisateur', function($routes) {
     $routes->connect('/', ['controller' => 'Users','action' => 'index'], ['routeClass' => 'InflectedRoute']);
     $routes->connect('/connexion', ['controller' => 'Users','action' => 'login']);
     $routes->connect('/deconnexion', ['controller' => 'Users','action' => 'logout']);
     $routes->connect('/editer/*', ['controller' => 'Users','action' => 'edit']);
     $routes->connect('/profil/*', ['controller' => 'Users','action' => 'view']);
+    $routes->connect('/commentaires', ['controller' => 'Commentarys', 'action' => 'index']);
     $routes->fallbacks(DashedRoute::class);
 });

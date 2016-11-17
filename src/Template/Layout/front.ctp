@@ -36,7 +36,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand <?php if ($this->request->here == '/'): ?>active <?php endif; ?>" href="/">Accueil</a>
+                    <a class="navbar-brand" href="<?= $this->Url->build(['controller' => 'pages', 'action' => 'display','home', 'prefix'=>false]) ?>">Accueil</a>
                 </div>
                 <div class="collapse navbar-collapse ribbon" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
@@ -74,5 +74,29 @@
 <footer>
 </footer>
 <?= $this->Html->script('jquery.datetimepicker.full.min.js') ?>
+<script>
+    $('body').append('<a href="#top" class="top_link" title="Revenir en haut de page">Haut</a>');
+    $('.top_link').css({
+        'position'				:	'fixed',
+        'right'					:	'0px',
+        'bottom'				:	'20px',
+        'display'				:	'none',
+        'padding'				:	'20px',
+        'background'            :   '#9671e2',
+        'color'                 :   'white',
+        '-moz-border-radius'	:	'40px',
+        '-webkit-border-radius'	:	'40px',
+        'border-radius'			:	'40px',
+        'opacity'				:	'0.9',
+        'z-index'				:	'2000'
+    });
+    $(window).scroll(function(){
+        posScroll = $(document).scrollTop();
+        if(posScroll >=300)
+            $('.top_link').fadeIn(600);
+        else
+            $('.top_link').fadeOut(600);
+    });
+</script>
 </body>
 </html>

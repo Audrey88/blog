@@ -59,8 +59,11 @@ class PagesController extends AppController
             ->Limit(5);
 
         $commentary = $this->Commentarys->newEntity();
+        $this->loadModel('Categories');
+        $categorie = $this->Categories->find('all');
 
-        $this->set(compact('articles', 'users', 'utilisateur', 'commentary'));
+
+        $this->set(compact('articles', 'users', 'utilisateur', 'commentary', 'categorie'));
         $this->set('_serialize', ['articles']);
 
         $path = func_get_args();
