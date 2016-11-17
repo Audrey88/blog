@@ -51,9 +51,10 @@ class PagesController extends AppController
             ->order('date_publish DESC')
             ->where(['publish'=> 1]);
 
-        $users = $this->Users->find('all')->where(['id'==1]);
+        $users = $this->Users->find('all')
+            ->where(['role_id'=>1]);
         $utilisateur = $this->Users->find('all')
-            ->where(['id'==2])
+            ->where(['role_id'=>2])
             ->order('id DESC')
             ->Limit(5);
 

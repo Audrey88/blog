@@ -60,7 +60,7 @@ $cakeDescription = 'Blog-original';
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand <?php if ($this->request->here == '/'): ?>active <?php endif; ?>" href="/">Accueil</a>
+                    <a class="navbar-brand" href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'display','home', 'prefix' => false]) ?>">Accueil</a>
                 </div>
                 <div class="collapse navbar-collapse ribbon" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
@@ -73,6 +73,16 @@ $cakeDescription = 'Blog-original';
                         if ($this->request->session()->read('Auth')['User']['role_id'] ==1) : ?>
                             <a id="connexion" href="<?= $this->Url->build(['controller' => 'users', 'action' => 'view', $this->request->session()->read('Auth')['User']['id'], 'prefix' => 'admin']) ?>">Mon compte</a>
                         </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" id="connexion" href="
+                            <?= $this->Url->build(['controller' => 'users', 'action' => 'index', 'prefix' => 'admin']) ?>">
+                                Les membres
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="<?= $this->Url->build(['controller' => 'users', 'action' => 'add', 'prefix' => 'admin']) ?>">Ajouter un membres</a></li>
+                                <li><a href="<?= $this->Url->build(['controller' => 'users', 'action' => 'index', 'prefix' => 'admin']) ?>">Voir les membres</a></li>
+                            </ul>
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" id="connexion" href="
                             <?= $this->Url->build(['controller' => 'articles', 'action' => 'index', 'prefix' => 'admin']) ?>">
