@@ -40,7 +40,7 @@
                     <div class="hidden-sm hidden-lg hidden-md">
                         <?php foreach ($categories as $cat): ?>
                             <span><?= $this->Html->Link($cat->name, ['action' => 'index', $cat->id], ['class'=>'badge']) ?></span>
-                        <?php endforeach; ?>
+                        <?php endforeach;?>
                     </div>
                     <div class="articles index col-md-12 columns content">
                         <?php foreach ($artPublished as $article): ?>
@@ -56,8 +56,36 @@
                                         <h4>Catégorie:</h4>
                                         <p><?= $article->has('category') ? $article->category->name : '' ?></p>
                                         <h4>description :</h4>
-                                        <p class="big"> <?= $article->description ?>
+                                        <p class="big"> <?= $this->Text->truncate (
+                                                $article->description,
+                                                150, [
+                                                    'ellipsis'=> '...',
+                                                    'exact'=> false
+                                                ]
+                                            ) ?>
                                         </p>
+                                        <button type="button" class="btn btn-md glyphicon glyphicon-plus" data-toggle="modal" data-target="#myModal-<?=$article->id?>"></button>
+
+                                        <!-- Modal -->
+                                        <div id="myModal-<?= $article->id?>" class="modal fade" role="dialog">
+                                            <div class="modal-dialog">
+                                                <!-- Modal content-->
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        <h2 class="modal-title"><?= $article->titre?></h2>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p> <?= $this->Html->image('/img/article/100x100/' . $article->picture_url, ['class' => 'img-responsive center-block']) ?></p>
+                                                        <p><?= $article->description ?></p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-md" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="related text-left col-md-12">
                                         <div id="<?= $article->id ?>" class="comments">
@@ -112,12 +140,6 @@
             var currentId = $(this).attr('id');
             $('#commentaire-' + currentId + '').toggle('slow');
             // $(this).attr('id');  gets the id of a clicked link that has a class of menu
-        });
-        $("div.img").hover(function () {
-            var currentId = $(this).attr('id');
-            $(currentId).effect("size", {
-                to: {width: 400, height: 400}
-            }, 1000);
         });
     });
 </script>
