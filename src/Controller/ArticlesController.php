@@ -22,6 +22,7 @@ class ArticlesController extends AppController
      */
     public function index($id =null)
     {
+        $this->viewBuilder()->layout('front');
         $this->paginate = [
             'contain' => ['Categories', 'Users', 'Commentarys']
         ];
@@ -66,6 +67,7 @@ class ArticlesController extends AppController
      */
     public function view($id = null)
     {
+        $this->viewBuilder()->layout('front');
         $article = $this->Articles->get($id, [
             'contain' => ['Categories', 'Users', 'Commentarys.Users']
         ]);
