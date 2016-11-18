@@ -93,3 +93,27 @@ li:hover,  .navbar-brand:hover {
 button{
     background-color: #2d0065;
 }
+.btn:hover{
+    background-color: #9671e2;
+    color: white;
+}
+
+.big{
+
+}
+
+.modal-content{
+    background-color: #9671e2;
+    font-weight: bold;
+}
+.modal-content p {
+    font-size: 18px;
+}
+
+.modal-footer{
+    background-color: #2d0065;
+}
+
+.modal-header{
+    background-color: #2d0065;
+}
