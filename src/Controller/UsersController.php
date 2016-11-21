@@ -26,22 +26,21 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->data);
             if ($this->Users->save($user)) {
-                $picture = $this->Upload->getPicture($this->request->data['avatar_url'],'user',$user->id, 300, 300, false);
+                $picture = $this->Upload->getPicture($this->request->data['avatar_url'],'user',$user->id);
                 $this->request->data['avatar'] = $picture;
                 $user = $this->Users->patchEntity($user, $this->request->data);
 
-                $email = new Email('default');
-                $email->viewVars(['users'=>$user])
-                    ->to($user->email)
-                    ->subject(sprintf('Bienvenue', $user->firstname))
-                    ->template('welcome')// Par défaut le template avec le même nom que le nom de la méthode est utilisé.
-                    ->emailFormat('html')
-                    ->send();
+                if ($this->Users->save($user)){
+                    $email = new Email('default');
+                    $email->viewVars(['users'=>$user])
+                        ->to($user->email)
+                        ->subject(sprintf('Bienvenue', $user->firstname))
+                        ->template('welcome')// Par défaut le template avec le même nom que le nom de la méthode est utilisé.
+                        ->emailFormat('html')
+                        ->send();
 
-                $this->Users->save($user);
+                }
                     //mail
-
-
                 $this->Flash->success(__('The user has been saved.'));
                 return $this->redirect(
                     ['controller' => 'users', 'action' => 'login', 'prefix'=>'utilisateur']

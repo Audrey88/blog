@@ -106,11 +106,5 @@
             $('#commentaire-' + currentId + '').toggle('slow');
             // $(this).attr('id');  gets the id of a clicked link that has a class of menu
         });
-        $("div.img").hover(function () {
-            var currentId = $(this).attr('id');
-            $(currentId).effect("size", {
-                to: {width: 400, height: 400}
-            }, 1000);
-        });
     });
 </script>

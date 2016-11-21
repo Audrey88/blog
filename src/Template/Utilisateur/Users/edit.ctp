@@ -6,7 +6,7 @@
     <div class="col-md-6">
         <div class="form-group">
             <label class="label-control">Rôle: </label>
-            <?= $this->Form->input('role_id', ['options' => $roles, 'label' => false, 'class' => 'form-control']); ?>
+            <?= $this->Form->hidden('role_id', ['options' => $roles, 'label' => false, 'class' => 'form-control']); ?>
         </div>
         <div class="form-group">
             <label class="label-control">Pseudo: </label>
@@ -36,24 +36,9 @@
             <?= $this->Form->input('birthday', ['type' => 'date', 'label' => false, 'class' => 'form-control']); ?>
         </div>
         <div class="form-group">
-            <label class="label-control">Changer avatar :</label>
+            <label class="label-control">Avatar: </label>
+            <?= $this->Form->input('avatar_url',['label'=>false,'type' => 'file']); ?>
         </div>
-            <div class="fileinput fileinput-new" data-provides="fileinput">
-                <div class="fileinput-new thumbnail" style="width: 100px; height: 100px;">
-                </div>
-                <div class="fileinput-preview fileinput-exists thumbnail"
-                     style="max-width: 300px; max-height: 300px;"></div>
-                <div>
-                    <span class="btn default btn-file">
-                      <span class="fileinput-new btn btn-primary"> Selectionner une image </span>
-                      <span class="fileinput-exists btn btn-primary"> Modifier </span>
-                      <input type="file" name="avatar_url">
-                    </span>
-                    <a href="javascript:;" class="btn btn-danger fileinput-exists"
-                       data-dismiss="fileinput"> Retirer </a>
-                </div>
-            </div>
-
         <br>
     </div>
 </fieldset> <?= $this->Form->button('Envoyer', ['class' => 'btn green']) ?>

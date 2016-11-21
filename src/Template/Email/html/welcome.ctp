@@ -20,7 +20,7 @@
 </title>
     </head>
 <body>
-<h1>Bienvenue <?=$user->username?>!</h1>
+<h1>Bienvenue <?=$users->username?>!</h1>
 <p>Merci de t'être inscrit sur mon blog. Je t'invite à lire mes articles et à les commenter si tu le désire et à me poser des questions.</p>
 <p>Bonne navigation et à bientôt sur mon blog!</p>
 
