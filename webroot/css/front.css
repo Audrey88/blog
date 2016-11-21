@@ -7,6 +7,9 @@ body{
     font-size: 14px;
     margin-right: 5%;
 }
+#commentaire {
+    color: black;
+}
 .icon-logged {
     width: 60px;
 }

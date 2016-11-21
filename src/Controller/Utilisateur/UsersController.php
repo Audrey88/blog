@@ -55,6 +55,10 @@ class UsersController extends AppController
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
+            if(!empty($this->request->data['avatar_url']['name'])) {
+                $picture = $this->Upload->getPicture($this->request->data['avatar_url'], 'user', $user->id);
+                $this->request->data['avatar'] = $picture;
+            }
             $user = $this->Users->patchEntity($user, $this->request->data);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('La modification a bien été enregistrée'));
@@ -86,10 +90,10 @@ class UsersController extends AppController
             if ($user) {
                 $this->Auth->setUser($user);
                 if ($user['role_id']===1){
-                return $this->redirect(['controller' => 'Articles', 'action' => 'index', 'prefix' => 'admin']);
+                return $this->redirect(['controller' => 'Articles', 'action' => 'index', 'prefix' => false]);
                 }
                 else {
-                    return $this->redirect(['controller' => 'Articles', 'action' => 'index', 'prefix' => 'utilisateur']);
+                    return $this->redirect(['controller' => 'Articles', 'action' => 'index', 'prefix' => false]);
                 }
             }
             $this->Flash->error(__('Invalid username or password, try again'));

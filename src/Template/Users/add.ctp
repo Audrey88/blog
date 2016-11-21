@@ -23,7 +23,6 @@
                             <legend><?= __('Nouvel Utilisateur') ?></legend>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="label-control">Rôle : </label>
                                     <?= $this->Form->input('role_id', ['options' => $roles, 'label'=>false, 'class'=>'form-control']); ?>
                                 </div>
                                 <div class="form-group">

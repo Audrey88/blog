@@ -1,5 +1,4 @@
-<?= $this->Html->link('Accueil', ['controller' => 'Pages', 'action' => '/', 'prefix' => false]) ?> /
-<?= $this->Html->link($this->request->params['controller'], ['action' => 'index']) ?> /
+
 <div class="page-title">
     <h1 class="uppercase">
         Article <?php if ($article->publish == 1) : ?> publié <?php else: ?> Non publié <?php endif; ?>
