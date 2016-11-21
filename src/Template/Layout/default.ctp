@@ -65,6 +65,10 @@ $cakeDescription = 'Blog-original';
                 <div class="collapse navbar-collapse ribbon" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li>
+                        <?php
+                        // si il y a un utilisateur
+                        if (isset($this->request->session()->read('Auth')['User']['id'])): ?>
+
                         <?php  //si l'utilisateur est admin
                         if ($this->request->session()->read('Auth')['User']['role_id'] ==1) : ?>
                             <a id="connexion" href="<?= $this->Url->build(['controller' => 'users', 'action' => 'view', $this->request->session()->read('Auth')['User']['id'], 'prefix' => 'admin']) ?>">Mon compte</a>
@@ -105,6 +109,16 @@ $cakeDescription = 'Blog-original';
                         <?php endif; ?>
                         <!-- commun au deux -->
                         <li class="right-align"><a href="<?= $this->Url->build(['controller' => 'users', 'action' => 'logout']) ?>">se déconnecter</a> </li>
+
+
+                        <?php  //si non connecté
+                        else: ?>
+                        <a id="connexion" href="<?= $this->Url->build(['controller' => 'users', 'action' => 'login', 'prefix' => 'utilisateur']) ?>">Connexion</a>
+                            </li>
+                        <li>
+                            <a id="connexion" href=" <?= $this->Url->build(['controller' => 'users', 'action' => 'add', 'prefix' => false]) ?>">S'inscrire </a>
+                        </li>
+                        <?php endif;?>
                     </ul>
                 </div>
             </div>

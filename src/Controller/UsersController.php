@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Mailer\Email;
 /**
  * Users Controller
  *
@@ -28,7 +29,18 @@ class UsersController extends AppController
                 $picture = $this->Upload->getPicture($this->request->data['avatar_url'],'user',$user->id, 300, 300, false);
                 $this->request->data['avatar'] = $picture;
                 $user = $this->Users->patchEntity($user, $this->request->data);
+
+                $email = new Email('default');
+                $email->viewVars(['users'=>$user])
+                    ->to($user->email)
+                    ->subject(sprintf('Bienvenue', $user->firstname))
+                    ->template('welcome')// Par défaut le template avec le même nom que le nom de la méthode est utilisé.
+                    ->emailFormat('html')
+                    ->send();
+
                 $this->Users->save($user);
+                    //mail
+
 
                 $this->Flash->success(__('The user has been saved.'));
                 return $this->redirect(

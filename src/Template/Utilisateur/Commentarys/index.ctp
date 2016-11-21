@@ -13,7 +13,7 @@
             <?php foreach ($commentarys as $commentary): ?>
             <tr class="odd gradeX">
                 <td><?=$this->Text->truncate (
-                        $commentary->description,
+                        h($commentary->description),
                         100, [
                             'ellipsis'=> '...',
                             'exact'=> false
